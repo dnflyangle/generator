@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint lambdas",
+    "start": "node index.js",
+    "lint": "eslint src",
     "test:jest": "jest",
     "test": "npm run lint && npm run test:jest",
     "test:watch": "jest '--watch'",
@@ -66,6 +67,7 @@
     "eslint-plugin-babel": "~4.1.2",
     "eslint-plugin-import": "~2.7.0",
     "husky": "~0.14.3",
+    "glob": "~7.1.2",
     "jest": "~21.2.1",
     "webpack": "~3.6.0",
     "webpack-node-externals": "~1.6.0"
