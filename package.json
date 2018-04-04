@@ -1,0 +1,77 @@
+{
+  "name": "generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint lambdas",
+    "test:jest": "jest",
+    "test": "npm run lint && npm run test:jest",
+    "test:watch": "jest '--watch'",
+    "test-coverage": "jest --coverage",
+    "prepush": "npm run test",
+    "nsp:check": "nsp check --reporter summary"
+  },
+  "babel": {
+    "presets": [
+      "env"
+    ],
+    "plugins": [
+      [
+        "transform-runtime",
+        {
+          "polyfill": false,
+          "regenerator": true
+        }
+      ],
+      [
+        "babel-plugin-transform-builtin-extend",
+        {
+          "globals": [
+            "Error"
+          ]
+        }
+      ],
+      [
+        "transform-object-rest-spread"
+      ]
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/lifemltw/lifehq-services.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "homepage": "https://bitbucket.org/lifemltw/lifehq-services#readme",
+  "dependencies": {
+    "axios": "~0.17.0",
+    "babel-core": "~6.26.0",
+    "babel-polyfill": "~6.26.0",
+    "babel-runtime": "~6.26.0"
+  },
+  "devDependencies": {
+    "babel-cli": "~6.26.0",
+    "babel-eslint": "~8.0.1",
+    "babel-loader": "~7.1.2",
+    "babel-plugin-transform-builtin-extend": "~1.1.2",
+    "babel-plugin-transform-object-rest-spread": "~6.26.0",
+    "babel-plugin-transform-runtime": "~6.23.0",
+    "babel-preset-env": "~1.6.0",
+    "babel-register": "~6.26.0",
+    "eslint": "~4.8.0",
+    "eslint-config-airbnb-base": "~12.0.1",
+    "eslint-import-resolver-webpack": "~0.8.3",
+    "eslint-loader": "~1.9.0",
+    "eslint-plugin-babel": "~4.1.2",
+    "eslint-plugin-import": "~2.7.0",
+    "husky": "~0.14.3",
+    "jest": "~21.2.1",
+    "webpack": "~3.6.0",
+    "webpack-node-externals": "~1.6.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coverageDirectory": "./coverage"
+  }
+}
