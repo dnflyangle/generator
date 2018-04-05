@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "nodemon index.js --exec babel-node --presets env",
     "lint": "eslint src",
     "test:jest": "jest",
     "test": "npm run lint && npm run test:jest",
@@ -66,10 +66,11 @@
     "eslint-loader": "~1.9.0",
     "eslint-plugin-babel": "~4.1.2",
     "eslint-plugin-import": "~2.7.0",
-    "husky": "~0.14.3",
     "glob": "~7.1.2",
-    "nsp": "~3.1.0",
+    "husky": "~0.14.3",
     "jest": "~21.2.1",
+    "nodemon": "~1.17.3",
+    "nsp": "~3.1.0",
     "webpack": "~3.6.0",
     "webpack-node-externals": "~1.6.0"
   },
