@@ -10,7 +10,6 @@
     "test": "npm run lint && npm run test:jest",
     "test:watch": "jest '--watch'",
     "test-coverage": "jest --coverage",
-    "prepush": "npm run test",
     "nsp:check": "nsp check --reporter summary"
   },
   "husky": {
