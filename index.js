@@ -1,1 +1,3 @@
-console.log('starting');
+import getMeetupEvents from './src/getMeetupEvents';
+
+getMeetupEvents();
