@@ -1,9 +1,9 @@
 import axios from 'axios';
 import logger from './utils/logger';
 
-const buildRequest = (groupName) =>
-  axios.get(`https://api.meetup.com/${groupName}/events`)
+const buildRequest = (groupUrl) =>
+  axios.get(groupUrl)
     .then((response) => response.data)
-    .catch(() => logger.error(`Failed to fetch events for group: ${groupName}`));
+    .catch((err) => logger.error(`Failed to fetch events from url: ${groupUrl} with err: ${err}`));
 
 export default buildRequest;
