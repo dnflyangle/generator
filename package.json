@@ -10,12 +10,8 @@
     "test": "npm run lint && npm run test:jest",
     "test:watch": "jest '--watch'",
     "test-coverage": "jest --coverage",
-    "nsp:check": "nsp check --reporter summary"
-  },
-  "husky": {
-    "hooks": {
-      "pre-push": "npm test"
-    }
+    "nsp:check": "nsp check --reporter summary",
+    "prepush": "npm test"
   },
   "babel": {
     "presets": [
