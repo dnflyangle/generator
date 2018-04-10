@@ -1,5 +1,6 @@
 import ejs from 'ejs';
 import fs from 'fs';
+import moment from 'moment';
 
 import buildMeetupUrls from './src/buildMeetupUrls';
 import getMeetupEvents from './src/getMeetupEvents';
@@ -31,4 +32,4 @@ const main = async (startDateOfWeek) => {
   });
 };
 
-main('2018-04-08');
+main(moment().startOf('week').format('YYYY-MM-DD'));
