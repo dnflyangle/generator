@@ -33,8 +33,9 @@ describe('groupEvents', () => {
       },
     ];
 
-    const groupedEvents = groupEvents(events, '2018-04-09');
+    const groupedEvents = groupEvents(events, '2018-04-08');
     expect(groupedEvents).toEqual({
+      'Sunday 08/04/2018': {},
       'Monday 09/04/2018': {
         '5:00 pm': [{
           eventName: 'Harry Potter Two',
@@ -69,6 +70,7 @@ describe('groupEvents', () => {
         }],
       },
       'Friday 13/04/2018': {},
+      'Saturday 14/04/2018': {},
     });
   });
 });

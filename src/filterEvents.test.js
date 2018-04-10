@@ -4,7 +4,7 @@ describe('filterEvents', () => {
   it('should filter events by dateRange', () => {
     const events = [[{
       name: 'Big Bang Theory One',
-      local_date: '2018-04-12',
+      local_date: '2018-04-13',
       local_time: '14:00',
       group:
        {
@@ -33,7 +33,7 @@ describe('filterEvents', () => {
     },
     {
       name: 'Harry Potter Two',
-      local_date: '2018-04-08',
+      local_date: '2018-04-09',
       local_time: '17:00',
       group:
        {
@@ -42,18 +42,18 @@ describe('filterEvents', () => {
       link: 'https://www.harrypotter.com/2',
     }]];
 
-    const filteredEvents = filterEvents(events, '2018-04-08', '2018-04-14');
+    const filteredEvents = filterEvents(events, '2018-04-09');
     expect(filteredEvents).toEqual([
       {
         eventName: 'Big Bang Theory One',
-        date: '2018-04-12',
+        date: '2018-04-13',
         time: '14:00',
         groupName: 'Big Bang Theory',
         link: 'https://www.bigbangtheory.com/1',
       },
       {
         eventName: 'Harry Potter Two',
-        date: '2018-04-08',
+        date: '2018-04-09',
         time: '17:00',
         groupName: 'Harry Potter',
         link: 'https://www.harrypotter.com/2',

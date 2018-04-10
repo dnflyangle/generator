@@ -3,15 +3,15 @@ import getMeetupEvents from './src/getMeetupEvents';
 import filterEvents from './src/filterEvents';
 import groupEvents from './src/groupEvents';
 
-const main = async () => {
+const main = async (startDateOfWeek) => {
   const meetupUrls = buildMeetupUrls();
 
   const events = await getMeetupEvents(meetupUrls);
 
-  const filteredEvents = filterEvents(events, '2018-04-08', '2018-04-14');
+  const filteredEvents = filterEvents(events, startDateOfWeek);
 
-  groupEvents(filteredEvents, '2018-04-08');
+  groupEvents(filteredEvents, startDateOfWeek);
 };
 
-main();
+main('2018-04-09');
 

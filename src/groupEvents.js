@@ -4,7 +4,7 @@ import moment from 'moment';
 const eventsByDayOfWeek = (startDateOfWeek) => {
   const events = {};
   forEach(
-    [0, 1, 2, 3, 4],
+    [0, 1, 2, 3, 4, 5, 6],
     (day) => {
       events[moment(startDateOfWeek).add(day, 'days').format('dddd DD/MM/YYYY')] = {};
     },

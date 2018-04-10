@@ -1,9 +1,12 @@
 import { flatten, filter, map } from 'lodash';
 import moment from 'moment';
 
-const filterEvents = (events, startDate, endDate) => {
+const filterEvents = (events, startDateOfWeek) => {
+  const startDate = moment(startDateOfWeek);
+  const endDate = moment(startDateOfWeek).add(6, 'days');
+
   const filteredEvents = filter(flatten(events), event =>
-    moment(event.local_date).isSameOrAfter(moment(startDate)) &&
+    moment(event.local_date).isSameOrAfter(startDate) &&
   moment(event.local_date).isSameOrBefore(endDate));
 
   return map(filteredEvents, event => ({
