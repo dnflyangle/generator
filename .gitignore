@@ -9,3 +9,6 @@ coverage/
 
 #Mac OX
 .DS_Store
+
+#output file
+output.html

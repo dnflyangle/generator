@@ -1,0 +1,62 @@
+<html>
+<head>
+    <style>
+      body {
+        font-family: "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial;
+        font-size: 14px;
+      }
+
+      h1 {
+        font-size: 16px;
+        margin-top: 25px;
+        margin-bottom: 5px;
+      }
+
+      .time {
+        float: left;
+      }
+
+      .time-group {
+        margin-left: 80px;
+      }
+
+      .event-name {
+        margin-bottom: 0;
+      }
+
+      .meetup {
+        color: #707070;
+        margin-bottom: 10px;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+    </style>
+</head>
+<body>
+  <% groupedEvents.forEach(function(day) { %>
+    <% var eventsByDate = day.eventsByDate %>
+    <h1><%= day.date %></h1>
+    <% if(eventsByDate.length === 0) { %>
+      <div>(none)</div>
+    <% } else { %>
+      <% eventsByDate.forEach(function(events) { %>
+        <div class="time"><%= events.time %></div>
+        <div class="time-group">
+          <% events.eventsByTime.forEach(function(event) { %>
+            <div class="meetup">
+                <div class="event-name"><a href="<%= event.link %>"><%= event.eventName %></a></div>
+                <div><%= event.groupName %></div>
+            </div>
+          <% }); %>
+        </div>
+      <% }); %>
+    <% } %>
+  <% }); %>
+</body>
+</html>

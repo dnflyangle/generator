@@ -50,6 +50,7 @@
     "babel-core": "~6.26.0",
     "babel-polyfill": "~6.26.0",
     "babel-runtime": "~6.26.0",
+    "ejs": "~2.5.8",
     "lodash": "~4.17.5",
     "moment": "~2.22.0"
   },
