@@ -1,12 +1,16 @@
-import { forEach } from 'lodash';
+import { forEach, findIndex, sortedIndexBy } from 'lodash';
 import moment from 'moment';
 
 const eventsByDayOfWeek = (startDateOfWeek) => {
-  const events = {};
+  const events = [];
   forEach(
     [0, 1, 2, 3, 4, 5, 6],
     (day) => {
-      events[moment(startDateOfWeek).add(day, 'days').format('dddd DD/MM/YYYY')] = {};
+      const event = {
+        date: moment(startDateOfWeek).add(day, 'days').format('dddd DD/MM/YYYY'),
+        eventsByDate: [],
+      };
+      events.push(event);
     },
   );
   return events;
@@ -17,11 +21,18 @@ const groupEvents = (events, startDateOfWeek) => {
   forEach(events, event => {
     const date = moment(event.date).format('dddd DD/MM/YYYY');
     const time = moment(event.time, 'hh:mm').format('h:mm a');
-    const eventOnDateTime = eventsByDay[date][time];
-    if (!eventOnDateTime) {
-      eventsByDay[date][time] = [];
+    const dateIndex = findIndex(eventsByDay, { date });
+    const { eventsByDate } = eventsByDay[dateIndex];
+    const timeIndex = sortedIndexBy(eventsByDate, { time }, 'time');
+    const target = eventsByDate[timeIndex];
+    if (target) {
+      target.eventsByTime.push(event);
+    } else {
+      eventsByDate.push({
+        time,
+        eventsByTime: [event],
+      });
     }
-    eventsByDay[date][time].push(event);
   });
   return eventsByDay;
 };

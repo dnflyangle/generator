@@ -10,8 +10,8 @@ const main = async (startDateOfWeek) => {
 
   const filteredEvents = filterEvents(events, startDateOfWeek);
 
-  groupEvents(filteredEvents, startDateOfWeek);
+  console.log(JSON.stringify(groupEvents(filteredEvents, startDateOfWeek)));
 };
 
-main('2018-04-09');
+main('2018-04-08');
 
