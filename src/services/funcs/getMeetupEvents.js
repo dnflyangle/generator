@@ -1,6 +1,6 @@
 import { reject, isEmpty, map } from 'lodash';
 import buildRequest from './buildRequest';
-import logger from './utils/logger';
+import logger from '../../utils/logger';
 
 const getMeetupEvents = async (meetupUrls) => {
   return Promise.all(map(meetupUrls, url => buildRequest(url)))

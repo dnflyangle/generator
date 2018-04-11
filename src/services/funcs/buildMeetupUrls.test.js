@@ -1,6 +1,6 @@
 import buildMeetupUrls from './buildMeetupUrls';
 
-jest.mock('./constants/MeetupGroupNames', () => ([
+jest.mock('../../constants/MeetupGroupNames', () => ([
   'MeetupOne',
   'MeetupTwo',
 ]));

@@ -3,14 +3,15 @@ const error = (message, ...args) =>
   console.error(message, args);
 
 const warn = (message, ...args) =>
-  warnLoggingEnabled && console.warn(message, args);
+  console.warn(message, args);
 
-const debug = (message, ...args) =>
-  debugLoggingEnabled && console.log(message, args);
+const info = (message, ...args) =>
+  console.log(message, args);
 /* eslint-enable */
+
 
 module.exports = {
   error,
   warn,
-  debug,
+  info,
 };

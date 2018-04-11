@@ -1,14 +1,13 @@
 import ejs from 'ejs';
 import fs from 'fs';
-import moment from 'moment';
 
-import buildMeetupUrls from './src/buildMeetupUrls';
-import getMeetupEvents from './src/getMeetupEvents';
-import filterEvents from './src/filterEvents';
-import groupEvents from './src/groupEvents';
-import logger from './src/utils/logger';
+import buildMeetupUrls from './funcs/buildMeetupUrls';
+import getMeetupEvents from './funcs/getMeetupEvents';
+import filterEvents from './funcs/filterEvents';
+import groupEvents from './funcs/groupEvents';
+import logger from '../utils/logger';
 
-const main = async (startDateOfWeek) => {
+const generateMeetupHtml = async (startDateOfWeek) => {
   const meetupUrls = buildMeetupUrls();
 
   const events = await getMeetupEvents(meetupUrls);
@@ -32,4 +31,4 @@ const main = async (startDateOfWeek) => {
   });
 };
 
-main(moment().startOf('week').format('YYYY-MM-DD'));
+export default generateMeetupHtml;

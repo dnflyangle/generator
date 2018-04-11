@@ -2,9 +2,9 @@
   "name": "generator",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "nodemon index.js --exec babel-node --presets env",
+    "start": "nodemon app.js --exec babel-node --presets env",
     "lint": "eslint src",
     "test:jest": "jest",
     "test": "npm run lint && npm run test:jest",
@@ -51,6 +51,7 @@
     "babel-polyfill": "~6.26.0",
     "babel-runtime": "~6.26.0",
     "ejs": "~2.5.8",
+    "express": "~4.16.3",
     "lodash": "~4.17.5",
     "moment": "~2.22.0"
   },
