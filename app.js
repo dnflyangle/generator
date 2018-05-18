@@ -1,11 +1,24 @@
 import express from 'express';
 import moment from 'moment';
 
+import { connectMongo, dropAllTokens, insertToken } from './src/services/MongoService';
 import generateMeetupHtml from './src/services/generateMeetupHtml';
 import logger from './src/utils/logger';
 import { authorize } from './src/services/GoogleService';
 
 const app = express();
+
+connectMongo(
+  () => {
+    logger.info('Database connection ready');
+    app.listen(process.env.PORT || 3000, () => logger.info('Generator listening on port 3000!'));
+  },
+  (err) => {
+    logger.error(err);
+    process.exit(1);
+  },
+);
+
 
 app.get('/generate', async (req, res) => {
   try {
@@ -26,8 +39,24 @@ app.get('/authorize', async (req, res) => {
 });
 
 app.get('/oauth2callback', async (req, res) => {
-  logger.info(req.query.code);
-  res.status(200).send('success');
-});
+  if (!req.query.code) {
+    res.status(500).send('invalid token provided');
+  }
 
-app.listen(3000, () => logger.info('Generator listening on port 3000!'));
+  await dropAllTokens()
+    .then(() => {
+      logger.info('previous tokens deleted');
+    })
+    .catch((err) => {
+      logger.error(err);
+      res.status(500).send('failed to save token');
+    });
+
+  await insertToken(req.query.code)
+    .then(() => {
+      res.status(201).send('successfully saved token');
+    })
+    .catch(() => {
+      res.status(500).send('failed to save token');
+    });
+});

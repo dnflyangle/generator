@@ -55,6 +55,7 @@
     "google-auth-library": "~1.4.0",
     "lodash": "~4.17.5",
     "moment": "~2.22.0",
+    "mongoose": "~5.1.1",
     "promise": "~8.0.1"
   },
   "devDependencies": {
