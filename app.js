@@ -25,8 +25,9 @@ app.get('/authorize', async (req, res) => {
   }
 });
 
-app.get('/oauth2callback', async (req) => {
-  logger.info(req);
+app.get('/oauth2callback', async (req, res) => {
+  logger.info(req.query.code);
+  res.status(200).send('success');
 });
 
 app.listen(3000, () => logger.info('Generator listening on port 3000!'));
