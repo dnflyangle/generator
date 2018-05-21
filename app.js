@@ -20,22 +20,17 @@ connectMongo(
   },
 );
 
-
-app.get('/generate', async (req, res) => {
+app.get('/email', async (req, res) => {
   try {
     await generateMeetupHtml(moment().startOf('week').format('YYYY-MM-DD'));
+    const { access_token, refresh_token } = await getToken();
+    OAuth2Client.setCredentials({ access_token, refresh_token });
+    await refreshToken(OAuth2Client);
+    await sendMessage();
     res.status(200).send("Successfully generated HTML page for this week's meetup");
   } catch (err) {
-    res.status(500).send(`generate Meetup HTML Failed with error: ${err}`);
+    res.status(500).send(`generate email failed with error: ${err}`);
   }
-});
-
-app.get('/email', async (req, res) => {
-  const { access_token, refresh_token } = await getToken();
-  OAuth2Client.setCredentials({ access_token, refresh_token });
-  await refreshToken(OAuth2Client);
-  await sendMessage();
-  res.status(200).send("Successfully generated HTML page for this week's meetup");
 });
 
 app.get('/authorize', async (req, res) => {
