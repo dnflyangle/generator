@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import logger from '../utils/logger';
 
 const tokenSchema = mongoose.Schema({
   token: String,
@@ -14,10 +15,24 @@ export const connectMongo = async (success, failure) => {
 };
 
 export const dropAllTokens = async () => {
-  return Token.remove({});
+  return Token.remove({})
+    .then(() => {
+      logger.info('previous tokens deleted');
+    })
+    .catch(err => {
+      logger.error('unable to remove previous token ', err);
+      throw new Error('unable to remove previous token');
+    });
 };
 
 export const insertToken = (token) => {
   const newToken = new Token({ token });
-  return newToken.save();
+  return newToken.save()
+    .then(() => {
+      logger.info('successfully saved token');
+    })
+    .catch(err => {
+      logger.error('unable to save token ', err);
+      throw new Error('unable to save token');
+    });
 };

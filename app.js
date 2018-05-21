@@ -43,20 +43,11 @@ app.get('/oauth2callback', async (req, res) => {
     res.status(500).send('invalid token provided');
   }
 
-  await dropAllTokens()
-    .then(() => {
-      logger.info('previous tokens deleted');
-    })
-    .catch((err) => {
-      logger.error(err);
-      res.status(500).send('failed to save token');
-    });
-
-  await insertToken(req.query.code)
-    .then(() => {
-      res.status(201).send('successfully saved token');
-    })
-    .catch(() => {
-      res.status(500).send('failed to save token');
-    });
+  try {
+    await dropAllTokens();
+    await insertToken(req.query.code);
+    res.status(201).send('successfully saved token');
+  } catch (err) {
+    res.status(500).send('failed to save token');
+  }
 });
