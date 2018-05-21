@@ -1,7 +1,7 @@
 import filterEvents from './filterEvents';
 
 describe('filterEvents', () => {
-  it('should filter events by dateRange', () => {
+  it('should filter events by dateRange and uniq by link', () => {
     const events = [[{
       name: 'Big Bang Theory One',
       local_date: '2018-04-13',
@@ -30,6 +30,16 @@ describe('filterEvents', () => {
          name: 'Harry Potter',
        },
       link: 'https://www.harrypotter.com/1',
+    },
+    {
+      name: 'Harry Potter Two',
+      local_date: '2018-04-09',
+      local_time: '17:00',
+      group:
+       {
+         name: 'Harry Potter',
+       },
+      link: 'https://www.harrypotter.com/2',
     },
     {
       name: 'Harry Potter Two',
