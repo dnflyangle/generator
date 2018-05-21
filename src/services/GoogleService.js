@@ -1,5 +1,8 @@
 import Promise from 'promise';
 import nodemailer from 'nodemailer';
+import moment from 'moment';
+import fs from 'fs';
+
 import { getToken, insertToken } from './MongoService';
 import logger from '../utils/logger';
 
@@ -41,14 +44,14 @@ export const sendMessage = async () => {
   const clientSecret = process.env.CLIENT_SECRET;
   const clientId = process.env.CLIENT_ID;
   const { access_token, refresh_token, expiry_date } = await getToken();
-
+  const content = fs.readFileSync('output.html');
   const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 465,
     secure: true,
     auth: {
       type: 'OAuth2',
-      user: 'ili@thoughtworks.com',
+      user: process.env.SENDER_EMAIL,
       clientId,
       clientSecret,
       refreshToken: refresh_token,
@@ -57,9 +60,9 @@ export const sendMessage = async () => {
     },
   });
   transporter.sendMail({
-    from: 'ili@thoughtworks.com',
-    to: 'dnflyangle@gmail.com',
-    subject: 'Message',
-    text: 'I hope this message gets through!',
+    from: process.env.SENDER_EMAIL,
+    to: process.env.RECEIVER_EMAIL,
+    subject: `[SYD][Meetups] Meetups of the week ${moment().startOf('week').format('DD/MM/YYYY')}`,
+    html: content,
   });
 };
