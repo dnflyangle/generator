@@ -1,10 +1,11 @@
 import express from 'express';
 import moment from 'moment';
 
-import { connectMongo, dropAllTokens, insertToken } from './src/services/MongoService';
+import OAuth2Client from './src/utils/OAuth2Client';
+import { connectMongo, dropAllTokens, insertToken, getToken } from './src/services/MongoService';
 import generateMeetupHtml from './src/services/generateMeetupHtml';
 import logger from './src/utils/logger';
-import { authorize } from './src/services/GoogleService';
+import { authorize, refreshToken, sendMessage } from './src/services/GoogleService';
 
 const app = express();
 
@@ -29,9 +30,17 @@ app.get('/generate', async (req, res) => {
   }
 });
 
+app.get('/email', async (req, res) => {
+  const { access_token, refresh_token } = await getToken();
+  OAuth2Client.setCredentials({ access_token, refresh_token });
+  await refreshToken(OAuth2Client);
+  await sendMessage();
+  res.status(200).send("Successfully generated HTML page for this week's meetup");
+});
+
 app.get('/authorize', async (req, res) => {
   try {
-    const authUrl = await authorize();
+    const authUrl = await authorize(OAuth2Client);
     res.status(200).send(`Authorize this app by visiting this url: ${authUrl}`);
   } catch (err) {
     res.status(500).send(`authorise user Failed with error: ${err}`);
@@ -44,8 +53,10 @@ app.get('/oauth2callback', async (req, res) => {
   }
 
   try {
+    const { tokens } = await OAuth2Client.getToken(req.query.code);
+    OAuth2Client.setCredentials(tokens);
     await dropAllTokens();
-    await insertToken(req.query.code);
+    await insertToken(tokens, req.query.code);
     res.status(201).send('successfully saved token');
   } catch (err) {
     res.status(500).send('failed to save token');

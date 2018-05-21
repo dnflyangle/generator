@@ -2,7 +2,10 @@ import mongoose from 'mongoose';
 import logger from '../utils/logger';
 
 const tokenSchema = mongoose.Schema({
-  token: String,
+  access_token: String,
+  refresh_token: String,
+  token_type: String,
+  expiry_date: Number,
 });
 
 const Token = mongoose.model('Token', tokenSchema);
@@ -26,7 +29,7 @@ export const dropAllTokens = async () => {
 };
 
 export const insertToken = (token) => {
-  const newToken = new Token({ token });
+  const newToken = new Token(token);
   return newToken.save()
     .then(() => {
       logger.info('successfully saved token');
@@ -34,5 +37,16 @@ export const insertToken = (token) => {
     .catch(err => {
       logger.error('unable to save token ', err);
       throw new Error('unable to save token');
+    });
+};
+
+export const getToken = () => {
+  return Token.findOne({}).exec()
+    .then((token) => {
+      return token;
+    })
+    .catch(err => {
+      logger.error('unable to get token ', err);
+      throw new Error('unable to get token');
     });
 };

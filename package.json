@@ -52,10 +52,11 @@
     "babel-runtime": "~6.26.0",
     "ejs": "~2.5.8",
     "express": "~4.16.3",
-    "google-auth-library": "~1.4.0",
+    "googleapis": "~30.0.0",
     "lodash": "~4.17.5",
     "moment": "~2.22.0",
     "mongoose": "~5.1.1",
+    "nodemailer": "~4.6.4",
     "promise": "~8.0.1"
   },
   "devDependencies": {
