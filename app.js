@@ -22,6 +22,7 @@ mongoose
 
 app.get('/generate', async (req, res) => {
   try {
+    logger.info(moment().toString());
     await generateMeetupHtml(moment().startOf('week').format('YYYY-MM-DD'));
     res.status(200).send('content generated, please check output.html');
   } catch (err) {
