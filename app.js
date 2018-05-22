@@ -3,9 +3,9 @@ import moment from 'moment';
 
 import OAuth2Client from './src/utils/OAuth2Client';
 import { connectMongo, dropAllTokens, insertToken } from './src/services/MongoService';
-import generateMeetupHtml from './src/services/generateMeetupHtml';
-import logger from './src/utils/logger';
+import { generateMeetupHtml } from './src/services/ContentService';
 import { authorize, refreshToken, sendMessage } from './src/services/GoogleService';
+import logger from './src/utils/logger';
 
 const app = express();
 

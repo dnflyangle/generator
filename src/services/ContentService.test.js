@@ -1,9 +1,10 @@
-import buildMeetupUrls from './buildMeetupUrls';
+import { buildMeetupUrls } from './ContentService';
 
-jest.mock('../../constants/MeetupGroupNames', () => ([
+jest.mock('../constants/MeetupGroupNames', () => ([
   'MeetupOne',
   'MeetupTwo',
 ]));
+
 describe('buildMeetupUrls', () => {
   it('should return an array of meetup urls', () => {
     const meetupUrls = buildMeetupUrls();
