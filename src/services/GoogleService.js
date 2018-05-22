@@ -3,7 +3,7 @@ import nodemailer from 'nodemailer';
 import moment from 'moment';
 import fs from 'fs';
 
-import { getToken, insertToken } from './MongoService';
+import { getToken, updateToken } from './MongoService';
 import logger from '../utils/logger';
 
 const scopes = [
@@ -25,6 +25,12 @@ export const authorize = async (oauth2Client) => (
   })
 );
 
+export const saveToken = async (oauth2Client, code) => {
+  const { tokens } = await oauth2Client.getToken(code);
+  oauth2Client.setCredentials(tokens);
+  await updateToken(tokens);
+};
+
 export const refreshToken = async oauth2Client => {
   const { access_token, refresh_token } = await getToken();
   oauth2Client.setCredentials({ access_token, refresh_token });
@@ -36,7 +42,7 @@ export const refreshToken = async oauth2Client => {
         reject(err);
       } else {
         logger.info('Token Refreshed');
-        await insertToken(tokens);
+        await updateToken(tokens);
         resolve(oauth2Client);
       }
     });

@@ -2,6 +2,8 @@ import mongoose from 'mongoose';
 import logger from '../utils/logger';
 
 const tokenSchema = mongoose.Schema({
+  office: String,
+  author: String,
   access_token: String,
   refresh_token: String,
   token_type: String,
@@ -10,27 +12,9 @@ const tokenSchema = mongoose.Schema({
 
 const Token = mongoose.model('Token', tokenSchema);
 
-export const connectMongo = async (success, failure) => {
-  await mongoose
-    .connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/test')
-    .then(success)
-    .catch(failure);
-};
-
-export const dropAllTokens = async () => {
-  return Token.remove({})
-    .then(() => {
-      logger.info('previous tokens deleted');
-    })
-    .catch(err => {
-      logger.error('unable to remove previous token ', err);
-      throw new Error('unable to remove previous token');
-    });
-};
-
-export const insertToken = (token) => {
-  const newToken = new Token(token);
-  return newToken.save()
+export const updateToken = (token) => {
+  const newToken = { ...token, office: 'Sydney', author: 'Issy' };
+  return Token.update({ office: 'Sydney' }, newToken, { upsert: true })
     .then(() => {
       logger.info('successfully saved token');
     })
@@ -41,7 +25,7 @@ export const insertToken = (token) => {
 };
 
 export const getToken = () => {
-  return Token.findOne({}).exec()
+  return Token.findOne({ office: 'Sydney' }).exec()
     .then((token) => {
       return token;
     })

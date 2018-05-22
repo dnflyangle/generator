@@ -1,24 +1,24 @@
 import express from 'express';
+import mongoose from 'mongoose';
 import moment from 'moment';
 
 import OAuth2Client from './src/utils/OAuth2Client';
-import { connectMongo, dropAllTokens, insertToken } from './src/services/MongoService';
 import { generateMeetupHtml } from './src/services/ContentService';
-import { authorize, refreshToken, sendMessage } from './src/services/GoogleService';
+import { authorize, saveToken, refreshToken, sendMessage } from './src/services/GoogleService';
 import logger from './src/utils/logger';
 
 const app = express();
 
-connectMongo(
-  () => {
+mongoose
+  .connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/test')
+  .then(() => {
     logger.info('Database connection ready');
     app.listen(process.env.PORT || 3000, () => logger.info('Generator listening on port 3000!'));
-  },
-  (err) => {
+  })
+  .catch((err) => {
     logger.error(err);
     process.exit(1);
-  },
-);
+  });
 
 app.get('/generate', async (req, res) => {
   try {
@@ -55,11 +55,8 @@ app.get('/oauth2callback', async (req, res) => {
   }
 
   try {
-    const { tokens } = await OAuth2Client.getToken(req.query.code);
-    OAuth2Client.setCredentials(tokens);
-    await dropAllTokens();
-    await insertToken(tokens, req.query.code);
-    res.status(201).send('successfully saved token');
+    await saveToken(OAuth2Client, req.query.code);
+    res.status(200).send('successfully saved token');
   } catch (err) {
     res.status(500).send('failed to save token');
   }
