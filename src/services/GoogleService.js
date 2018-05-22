@@ -25,20 +25,23 @@ export const authorize = async (oauth2Client) => (
   })
 );
 
-export const refreshToken = async oauth2Client => (
-  new Promise((resolve, reject) => {
+export const refreshToken = async oauth2Client => {
+  const { access_token, refresh_token } = await getToken();
+  oauth2Client.setCredentials({ access_token, refresh_token });
+
+  return new Promise((resolve, reject) => {
     oauth2Client.refreshAccessToken(async (err, tokens) => {
       if (err) {
         logger.error(err);
         reject(err);
       } else {
-        logger.info('Refreshed Tokens', tokens);
+        logger.info('Token Refreshed');
         await insertToken(tokens);
         resolve(oauth2Client);
       }
     });
-  })
-);
+  });
+};
 
 export const sendMessage = async () => {
   const clientSecret = process.env.CLIENT_SECRET;

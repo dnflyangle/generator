@@ -2,7 +2,7 @@ import express from 'express';
 import moment from 'moment';
 
 import OAuth2Client from './src/utils/OAuth2Client';
-import { connectMongo, dropAllTokens, insertToken, getToken } from './src/services/MongoService';
+import { connectMongo, dropAllTokens, insertToken } from './src/services/MongoService';
 import generateMeetupHtml from './src/services/generateMeetupHtml';
 import logger from './src/utils/logger';
 import { authorize, refreshToken, sendMessage } from './src/services/GoogleService';
@@ -20,11 +20,18 @@ connectMongo(
   },
 );
 
+app.get('/generate', async (req, res) => {
+  try {
+    await generateMeetupHtml(moment().startOf('week').format('YYYY-MM-DD'));
+    res.status(200).send('content generated, please check output.html');
+  } catch (err) {
+    res.status(500).send(`generate content failed with error: ${err}`);
+  }
+});
+
 app.get('/email', async (req, res) => {
   try {
     await generateMeetupHtml(moment().startOf('week').format('YYYY-MM-DD'));
-    const { access_token, refresh_token } = await getToken();
-    OAuth2Client.setCredentials({ access_token, refresh_token });
     await refreshToken(OAuth2Client);
     await sendMessage();
     res.status(200).send("Successfully generated HTML page for this week's meetup");
