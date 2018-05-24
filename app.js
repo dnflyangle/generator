@@ -5,14 +5,16 @@ import moment from 'moment';
 import OAuth2Client from './src/utils/OAuth2Client';
 import { generateMeetupHtml } from './src/services/ContentService';
 import { authorize, saveToken, refreshToken, sendMessage } from './src/services/GoogleService';
+import { seedMeetupGroups } from './src/services/MongoService';
 import logger from './src/utils/logger';
 
 const app = express();
 
 mongoose
   .connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/test')
-  .then(() => {
+  .then(async () => {
     logger.info('Database connection ready');
+    await seedMeetupGroups();
     app.listen(process.env.PORT || 3000, () => logger.info('Generator listening on port 3000!'));
   })
   .catch((err) => {
