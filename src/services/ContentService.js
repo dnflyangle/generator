@@ -8,7 +8,7 @@ import { getMeetupGroups } from './MeetupGroupService';
 
 export const buildMeetupUrls = async () => {
   const groups = await getMeetupGroups();
-  return map(groups, group => `https://api.meetup.com/${group.groupName}/events`);
+  return map(groups, group => `https://api.meetup.com/${group}/events`);
 };
 
 export const generateMeetupHtml = async (startDateOfWeek) => {

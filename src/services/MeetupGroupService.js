@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { isEmpty } from 'lodash';
+import { isEmpty, map } from 'lodash';
 import logger from '../utils/logger';
 import MEETUP_GROUP_NAMES from '../constants/MeetupGroupNames';
 
@@ -11,7 +11,12 @@ const meetupGroupSchema = mongoose.Schema({
 const MeetupGroup = mongoose.model('MeetupGroup', meetupGroupSchema);
 
 export const getMeetupGroups = async () => {
-  return MeetupGroup.find({ office: 'Sydney' }).exec();
+  return MeetupGroup.find({ office: 'Sydney' }).exec()
+    .then(groups => map(groups, group => group.groupName))
+    .catch(err => {
+      logger.error('unable to retrieve meetup groups from database ', err);
+      throw new Error('unable to retrieve meetup groups from database');
+    });
 };
 
 export const seedMeetupGroups = async () => {

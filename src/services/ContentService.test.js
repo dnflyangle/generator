@@ -8,11 +8,7 @@ jest.mock('./MeetupGroupService', () => ({
 
 describe('buildMeetupUrls', () => {
   it('should return an array of meetup urls', async () => {
-    getMeetupGroups.mockReturnValue(Promise.resolve([{
-      groupName: 'MeetupOne',
-    }, {
-      groupName: 'MeetupTwo',
-    }]));
+    getMeetupGroups.mockReturnValue(Promise.resolve(['MeetupOne', 'MeetupTwo']));
     const meetupUrls = await buildMeetupUrls();
     expect(meetupUrls).toEqual([
       'https://api.meetup.com/MeetupOne/events',
