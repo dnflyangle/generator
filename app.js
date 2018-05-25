@@ -5,7 +5,7 @@ import moment from 'moment';
 import OAuth2Client from './src/utils/OAuth2Client';
 import { generateMeetupHtml } from './src/services/ContentService';
 import { authorize, saveToken, refreshToken, sendMessage } from './src/services/GoogleService';
-import { seedMeetupGroups } from './src/services/MongoService';
+import { seedMeetupGroups } from './src/services/MeetupGroupService';
 import logger from './src/utils/logger';
 
 const app = express();

@@ -3,7 +3,7 @@ import nodemailer from 'nodemailer';
 import moment from 'moment';
 import fs from 'fs';
 
-import { getToken, updateToken } from './MongoService';
+import { getToken, updateToken } from './TokenService';
 import logger from '../utils/logger';
 
 const scopes = [
