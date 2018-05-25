@@ -11,7 +11,7 @@ const meetupGroupSchema = mongoose.Schema({
 const MeetupGroup = mongoose.model('MeetupGroup', meetupGroupSchema);
 
 export const getMeetupGroups = async () => {
-  return MeetupGroup.findOne({ office: 'Sydney' }).exec();
+  return MeetupGroup.find({ office: 'Sydney' }).exec();
 };
 
 export const seedMeetupGroups = async () => {
