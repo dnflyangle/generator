@@ -11,10 +11,14 @@ export const buildMeetupUrls = async () => {
   return map(groups, group => `https://api.meetup.com/${group}/events`);
 };
 
-export const generateMeetupHtml = async (startDateOfWeek) => {
+export const generateMeetup = async (startDateOfWeek) => {
   const meetupUrls = await buildMeetupUrls();
   const events = await getMeetupEvents(meetupUrls);
   const filteredEvents = filterEvents(events, startDateOfWeek);
   const groupedEvents = groupEvents(filteredEvents, startDateOfWeek);
+  return groupedEvents;
+};
+export const generateMeetupHtml = async (startDateOfWeek) => {
+  const groupedEvents = await generateMeetup(startDateOfWeek);
   templateContent(groupedEvents);
 };
