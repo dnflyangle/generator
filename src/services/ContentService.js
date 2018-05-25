@@ -12,7 +12,7 @@ export const buildMeetupUrls = async () => {
 };
 
 export const generateMeetupHtml = async (startDateOfWeek) => {
-  const meetupUrls = buildMeetupUrls();
+  const meetupUrls = await buildMeetupUrls();
   const events = await getMeetupEvents(meetupUrls);
   const filteredEvents = filterEvents(events, startDateOfWeek);
   const groupedEvents = groupEvents(filteredEvents, startDateOfWeek);
