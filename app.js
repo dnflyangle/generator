@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import moment from 'moment';
+import bodyParser from 'body-parser';
 
 import OAuth2Client from './src/utils/OAuth2Client';
 import { generateMeetupHtml, generateMeetup } from './src/services/ContentService';
@@ -9,6 +10,7 @@ import { seedMeetupGroups } from './src/services/MeetupGroupService';
 import logger from './src/utils/logger';
 
 const app = express();
+app.use(bodyParser.json());
 
 mongoose
   .connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/test')
@@ -22,9 +24,10 @@ mongoose
     process.exit(1);
   });
 
-app.get('/generate', async (req, res) => {
+app.post('/generate', async (req, res) => {
   try {
-    const meetups = await generateMeetup(moment().startOf('week').format('YYYY-MM-DD'));
+    const { date } = req.body;
+    const meetups = await generateMeetup(moment(date, 'DD/MM/YYYY').startOf('week').format('YYYY-MM-DD'));
     res.status(200).send(meetups);
   } catch (err) {
     res.status(500).send(`generate content failed with error: ${err}`);
