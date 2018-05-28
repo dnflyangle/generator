@@ -2,9 +2,10 @@ import express from 'express';
 import mongoose from 'mongoose';
 import moment from 'moment';
 import bodyParser from 'body-parser';
+import path from 'path';
 
 import OAuth2Client from './src/utils/OAuth2Client';
-import { generateMeetupHtml, generateMeetup } from './src/services/ContentService';
+import { generateMeetupHtml } from './src/services/ContentService';
 import { authorize, saveToken, refreshToken, sendMessage } from './src/services/GoogleService';
 import { seedMeetupGroups } from './src/services/MeetupGroupService';
 import logger from './src/utils/logger';
@@ -27,8 +28,8 @@ mongoose
 app.post('/generate', async (req, res) => {
   try {
     const { date } = req.body;
-    const meetups = await generateMeetup(moment(date, 'DD/MM/YYYY').startOf('week').format('YYYY-MM-DD'));
-    res.status(200).send(meetups);
+    await generateMeetupHtml(moment(date, 'DD/MM/YYYY').startOf('week').format('YYYY-MM-DD'));
+    res.sendFile(path.join(`${__dirname}/output.html`));
   } catch (err) {
     res.status(500).send(`generate content failed with error: ${err}`);
   }
