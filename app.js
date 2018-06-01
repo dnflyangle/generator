@@ -8,7 +8,7 @@ import cors from 'cors';
 import OAuth2Client from './src/utils/OAuth2Client';
 import { generateMeetupHtml } from './src/services/ContentService';
 import { authorize, saveToken, refreshToken, sendMessage } from './src/services/GoogleService';
-import { seedMeetupGroups } from './src/services/MeetupGroupService';
+import { seedMeetupGroups, getMeetupGroups } from './src/services/MeetupGroupService';
 import logger from './src/utils/logger';
 
 const app = express();
@@ -31,6 +31,7 @@ const corsOptions = {
   origin: 'https://meetapp-tw.herokuapp.com',
   optionsSuccessStatus: 200,
 };
+
 app.post('/generate', cors(corsOptions), async (req, res) => {
   try {
     const { date } = req.body;
@@ -38,6 +39,15 @@ app.post('/generate', cors(corsOptions), async (req, res) => {
     res.sendFile(path.join(`${__dirname}/output.html`));
   } catch (err) {
     res.status(500).send(`generate content failed with error: ${err}`);
+  }
+});
+
+app.get('/groups', async (req, res) => {
+  try {
+    const groups = await getMeetupGroups();
+    res.status(200).send({ groups });
+  } catch (err) {
+    res.status(500).send(`failed to get Meetu Groups with error: ${err}`);
   }
 });
 
