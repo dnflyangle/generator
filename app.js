@@ -28,7 +28,7 @@ mongoose
   });
 
 const corsOptions = {
-  origin: 'https://meetapp-tw.herokuapp.com/',
+  origin: 'https://meetapp-tw.herokuapp.com',
   optionsSuccessStatus: 200,
 };
 app.post('/generate', cors(corsOptions), async (req, res) => {
