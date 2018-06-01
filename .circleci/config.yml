@@ -2,7 +2,7 @@ version: 2
 jobs:
   test:
     docker:
-      - image: circleci/node:8-stretch
+      - image: circleci/node:8.7.0
     steps:
       - checkout
       - run: npm install && npm test

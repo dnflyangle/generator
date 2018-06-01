@@ -29,6 +29,7 @@ app.post('/generate', async (req, res) => {
   try {
     const { date } = req.body;
     await generateMeetupHtml(moment(date, 'DD/MM/YYYY').startOf('week').format('YYYY-MM-DD'));
+    res.setHeader('Access-Control-Allow-Origin', 'https://meetapp-tw.herokuapp.com');
     res.sendFile(path.join(`${__dirname}/output.html`));
   } catch (err) {
     res.status(500).send(`generate content failed with error: ${err}`);
