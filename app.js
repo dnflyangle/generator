@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import moment from 'moment';
 import bodyParser from 'body-parser';
 import path from 'path';
+import cors from 'cors';
 
 import OAuth2Client from './src/utils/OAuth2Client';
 import { generateMeetupHtml } from './src/services/ContentService';
@@ -12,6 +13,7 @@ import logger from './src/utils/logger';
 
 const app = express();
 app.use(bodyParser.json());
+app.use(cors());
 
 mongoose
   .connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/test')
@@ -25,11 +27,14 @@ mongoose
     process.exit(1);
   });
 
-app.post('/generate', async (req, res) => {
+const corsOptions = {
+  origin: 'https://meetapp-tw.herokuapp.com/',
+  optionsSuccessStatus: 200,
+};
+app.post('/generate', cors(corsOptions), async (req, res) => {
   try {
     const { date } = req.body;
     await generateMeetupHtml(moment(date, 'DD/MM/YYYY').startOf('week').format('YYYY-MM-DD'));
-    res.header('Access-Control-Allow-Origin', 'https://meetapp-tw.herokuapp.com');
     res.sendFile(path.join(`${__dirname}/output.html`));
   } catch (err) {
     res.status(500).send(`generate content failed with error: ${err}`);
