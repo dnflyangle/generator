@@ -6,7 +6,7 @@
         font-size: 14px;
       }
 
-      h1 {
+      .event-date {
         font-size: 16px;
         margin-top: 25px;
         margin-bottom: 5px;
@@ -41,7 +41,7 @@
 <body>
   <% groupedEvents.forEach(function(day) { %>
     <% var eventsByDate = day.eventsByDate %>
-    <h1><%= day.date %></h1>
+    <h1 class="event-date"><%= day.date %></h1>
     <% if(eventsByDate.length === 0) { %>
       <div>(none)</div>
     <% } else { %>
