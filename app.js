@@ -28,7 +28,7 @@ mongoose
   });
 
 const corsOptions = {
-  origin: 'https://meetapp-tw.herokuapp.com',
+  origin: 'https://meetup-tw-sydney.herokuapp.com',
   optionsSuccessStatus: 200,
 };
 
