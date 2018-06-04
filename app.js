@@ -8,7 +8,7 @@ import cors from 'cors';
 import OAuth2Client from './src/utils/OAuth2Client';
 import { generateMeetupHtml } from './src/services/ContentService';
 import { authorize, saveToken, refreshToken, sendMessage } from './src/services/GoogleService';
-import { seedMeetupGroups, getMeetupGroups } from './src/services/MeetupGroupService';
+import { seedMeetupGroups, getMeetupGroups, addNewGroup, removeGroup } from './src/services/MeetupGroupService';
 import logger from './src/utils/logger';
 
 const app = express();
@@ -48,6 +48,28 @@ app.get('/groups', async (req, res) => {
     res.status(200).send({ groups });
   } catch (err) {
     res.status(500).send(`failed to get Meetu Groups with error: ${err}`);
+  }
+});
+
+app.post('/groups', async (req, res) => {
+  try {
+    const { groupName } = req.body;
+    await addNewGroup(groupName);
+    const groups = await getMeetupGroups();
+    res.status(200).send({ groups });
+  } catch (err) {
+    res.status(500).send(`failed to get Meetup Groups with error: ${err}`);
+  }
+});
+
+app.delete('/groups', async (req, res) => {
+  try {
+    const { groupName } = req.body;
+    await removeGroup(groupName);
+    const groups = await getMeetupGroups();
+    res.status(200).send({ groups });
+  } catch (err) {
+    res.status(500).send(`failed to delete Meetup Groups with error: ${err}`);
   }
 });
 
