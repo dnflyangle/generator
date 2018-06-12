@@ -69,7 +69,10 @@ export const sendMessage = async () => {
     },
   });
   transporter.sendMail({
-    from: process.env.SENDER_EMAIL,
+    from: {
+      name: process.env.SENDER_NAME,
+      address: process.env.SENDER_EMAIL,
+    },
     to: process.env.RECEIVER_EMAIL,
     bcc: process.env.SENDER_EMAIL,
     subject: `[SYD][Meetups] Meetups of the week ${moment().startOf('week').format('DD/MM/YYYY')}`,
