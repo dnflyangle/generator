@@ -5,11 +5,11 @@ import bodyParser from 'body-parser';
 import path from 'path';
 import cors from 'cors';
 
-import OAuth2Client from './src/utils/OAuth2Client';
-import { generateMeetupHtml } from './src/services/ContentService';
-import { authorize, saveToken, refreshToken, sendMessage } from './src/services/GoogleService';
-import { seedMeetupGroups, getMeetupGroups, addNewGroup, removeGroup } from './src/services/MeetupGroupService';
-import logger from './src/utils/logger';
+import OAuth2Client from './utils/OAuth2Client';
+import { generateMeetupHtml } from './services/ContentService';
+import { authorize, saveToken, refreshToken, sendMessage } from './services/GoogleService';
+import { seedMeetupGroups, getMeetupGroups, addNewGroup, removeGroup } from './services/MeetupGroupService';
+import logger from './utils/logger';
 
 const app = express();
 app.use(bodyParser.json());
