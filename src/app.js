@@ -36,7 +36,7 @@ app.post('/generate', cors(corsOptions), async (req, res) => {
   try {
     const { date } = req.body;
     await generateMeetupHtml(moment(date, 'DD/MM/YYYY').startOf('week').format('YYYY-MM-DD'));
-    res.sendFile(path.join(`${__dirname}/output.html`));
+    res.sendFile(path.join(`${__dirname}/services/funcs/output.html`));
   } catch (err) {
     res.status(500).send(`generate content failed with error: ${err}`);
   }
