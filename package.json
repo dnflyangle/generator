@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "build": "babel src --out-dir lib",
+    "build": "babel src --out-dir lib --copy-files",
     "start": "npm run build && node lib/app.js",
     "lint": "eslint src",
     "test:jest": "jest",
