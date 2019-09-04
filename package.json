@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "build": "babel src --out-dir lib --copy-files",
-    "start": "nodemon src/app.js --exec babel-node --presets env",
+    "start": "nodemon --exec babel-node src/app.js",
     "serve": "npm run build && node lib/app.js",
     "lint": "eslint src",
     "test:jest": "jest",
@@ -15,38 +15,12 @@
     "nsp:check": "nsp check --reporter summary",
     "prepush": "npm test"
   },
-  "babel": {
-    "presets": [
-      "env"
-    ],
-    "plugins": [
-      [
-        "transform-runtime",
-        {
-          "polyfill": false,
-          "regenerator": true
-        }
-      ],
-      [
-        "babel-plugin-transform-builtin-extend",
-        {
-          "globals": [
-            "Error"
-          ]
-        }
-      ],
-      [
-        "transform-object-rest-spread"
-      ]
-    ]
-  },
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@babel/polyfill": "^7.4.4",
+    "@babel/runtime": "^7.5.5",
     "axios": "^0.19.0",
-    "babel-core": "~6.26.0",
-    "babel-polyfill": "~6.26.0",
-    "babel-runtime": "~6.26.0",
     "body-parser": "~1.18.3",
     "cors": "~2.8.4",
     "ejs": "~2.5.8",
@@ -59,14 +33,13 @@
     "promise": "~8.0.1"
   },
   "devDependencies": {
-    "babel-cli": "~6.26.0",
-    "babel-eslint": "~8.0.1",
-    "babel-loader": "~7.1.2",
-    "babel-plugin-transform-builtin-extend": "~1.1.2",
-    "babel-plugin-transform-object-rest-spread": "~6.26.0",
-    "babel-plugin-transform-runtime": "~6.23.0",
-    "babel-preset-env": "~1.6.0",
-    "babel-register": "~6.26.0",
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/node": "^7.5.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
+    "@babel/plugin-transform-runtime": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "babel-eslint": "^10.0.3",
     "eslint": "~4.8.0",
     "eslint-config-airbnb-base": "~12.0.1",
     "eslint-import-resolver-webpack": "~0.8.3",
@@ -75,7 +48,7 @@
     "eslint-plugin-import": "~2.7.0",
     "glob": "~7.1.2",
     "husky": "~0.14.3",
-    "jest": "~21.2.1",
+    "jest": "^25.0.0",
     "nodemon": "^1.19.2",
     "nsp": "~3.1.0",
     "webpack": "~3.6.0",
