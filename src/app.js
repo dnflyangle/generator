@@ -7,8 +7,12 @@ import cors from 'cors';
 
 import OAuth2Client from './utils/OAuth2Client';
 import { generateMeetupHtml } from './services/ContentService';
-import { authorize, saveToken, refreshToken, sendMessage } from './services/GoogleService';
-import { seedMeetupGroups, getMeetupGroups, addNewGroup, removeGroup } from './services/MeetupGroupService';
+import {
+  authorize, saveToken, refreshToken, sendMessage,
+} from './services/GoogleService';
+import {
+  seedMeetupGroups, getMeetupGroups, addNewGroup, removeGroup,
+} from './services/MeetupGroupService';
 import logger from './utils/logger';
 
 const app = express();

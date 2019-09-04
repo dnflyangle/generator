@@ -14,6 +14,7 @@ const scopes = [
 ];
 
 export const authorize = async (oauth2Client) => (
+  // eslint-disable-next-line no-async-promise-executor
   new Promise(async (resolve) => {
     const authUrl = oauth2Client.generateAuthUrl({
       access_type: 'offline',
@@ -32,6 +33,7 @@ export const saveToken = async (oauth2Client, code) => {
 };
 
 export const refreshToken = async oauth2Client => {
+  // eslint-disable-next-line camelcase
   const { access_token, refresh_token } = await getToken();
   oauth2Client.setCredentials({ access_token, refresh_token });
 
@@ -52,6 +54,7 @@ export const refreshToken = async oauth2Client => {
 export const sendMessage = async () => {
   const clientSecret = process.env.CLIENT_SECRET;
   const clientId = process.env.CLIENT_ID;
+  // eslint-disable-next-line camelcase
   const { access_token, refresh_token, expiry_date } = await getToken();
   const content = fs.readFileSync('output.html');
   const transporter = nodemailer.createTransport({
