@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "build": "babel src --out-dir lib --copy-files",
-    "start": "npm run build && node lib/app.js",
+    "start": "nodemon src/app.js --exec babel-node --presets env",
+    "serve": "npm run build && node lib/app.js",
     "lint": "eslint src",
     "test:jest": "jest",
     "test": "npm run lint && npm run test:jest",
@@ -75,6 +76,7 @@
     "glob": "~7.1.2",
     "husky": "~0.14.3",
     "jest": "~21.2.1",
+    "nodemon": "^1.19.2",
     "nsp": "~3.1.0",
     "webpack": "~3.6.0",
     "webpack-node-externals": "~1.6.0"
