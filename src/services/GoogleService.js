@@ -56,7 +56,7 @@ export const sendMessage = async () => {
   const clientId = process.env.CLIENT_ID;
   // eslint-disable-next-line camelcase
   const { access_token, refresh_token, expiry_date } = await getToken();
-  const content = fs.readFileSync('output.html');
+  const content = fs.readFileSync(`${__dirname}/funcs/output.html`);
   const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 465,
