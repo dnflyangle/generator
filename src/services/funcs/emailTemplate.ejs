@@ -1,88 +1,102 @@
 <html>
+
 <head>
-    <style>
-      body {
-        font-family: "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial;
-        font-size: 14px;
-      }
+  <style>
+    body {
+      font-family: "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial;
+      font-size: 14px;
+    }
 
-      .event-date {
-        font-size: 16px;
-        margin-top: 25px;
-        margin-bottom: 5px;
-      }
+    .event-date {
+      font-size: 16px;
+      margin-top: 25px;
+      margin-bottom: 5px;
+    }
 
-      .time {
-        float: left;
-      }
+    .time {
+      float: left;
+    }
 
-      .time-group {
-        margin-left: 80px;
-      }
+    .time-group {
+      margin-left: 80px;
+    }
 
-      .event-name {
-        margin-bottom: 0;
-      }
+    .event-name {
+      margin-bottom: 0;
+    }
 
-      .meetup {
-        color: #707070;
-        margin-bottom: 10px;
-      }
+    .meetup {
+      color: #707070;
+      margin-bottom: 10px;
+    }
 
-      a {
-        text-decoration: none;
-      }
+    a {
+      text-decoration: none;
+    }
 
-      a:hover {
-        text-decoration: underline;
-      }
-    </style>
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
+
 <body>
-  <% groupedEvents.forEach(function(day) { %>
-    <% var eventsByDate = day.eventsByDate %>
-    <h1 class="event-date"><%= day.date %></h1>
-    <% if(eventsByDate.length === 0) { %>
-      <div>(none)</div>
-    <% } else { %>
-      <% eventsByDate.forEach(function(events) { %>
-        <div class="time"><%= events.time %></div>
-        <div class="time-group">
-          <% events.eventsByTime.forEach(function(event) { %>
-            <div class="meetup">
-                <div class="event-name"><a href="<%= event.link %>"><%= event.eventName %></a></div>
-                <div><%= event.groupName %></div>
-            </div>
-          <% }); %>
-        </div>
-      <% }); %>
-    <% } %>
-  <% }); %>
   <div>
+    <br />
+    To maintain meetup groups and preview next weeks meetups, please check <a
+      href="https://meetup-tw-sydney.herokuapp.com">this website</a>
+  </div>
+  <% groupedEvents.forEach(function(day) { %>
+  <% var eventsByDate = day.eventsByDate %>
+  <h1 class="event-date"><%= day.date %></h1>
+  <% if(eventsByDate.length === 0) { %>
+  <div>(none)</div>
+  <% } else { %>
+  <% eventsByDate.forEach(function(events) { %>
+  <div class="time"><%= events.time %></div>
+  <div class="time-group">
+    <% events.eventsByTime.forEach(function(event) { %>
+    <div class="meetup">
+      <div class="event-name"><a href="<%= event.link %>"><%= event.eventName %></a></div>
+      <div><%= event.groupName %></div>
+    </div>
+    <% }); %>
+  </div>
+  <% }); %>
+  <% } %>
+  <% }); %>
     <div>
       <br />
-     Here's the list of roles we're currently recruiting for in Australia. Please reach out to our recruitment team if you have any questions on our priority roles!
-     </div>
+      Here's the list of roles we're currently recruiting for in Australia. Please reach out to our recruitment team if
+      you have any questions on our priority roles!
+    </div>
 
-   <div>
-     <h1 class="event-date">Sydney:</h1>
-     <div>Consultant Developers</div>
-     <div>Lead Consultant Developer</div>
-     <div>Sales Operations Manager</div>
-     <div>Graduate Developers 2020 intake</div>
-   </div>
+    <div>
+      <h1 class="event-date">Sydney:</h1>
+      <div>Consultant Developers</div>
+      <div>Lead Consultant Developer</div>
+      <div>Sales Operations Manager</div>
+      <div>Graduate Developers 2020 intake</div>
+    </div>
 
-     <div>
-     <h1 class="event-date">Melbourne:</h1>
-     <div>Consultant Developers</div>
-     <div>Data Engineers</div>
-     <div>Graduate Developers 2020 intake</div>
-     </div>
+    <div>
+      <h1 class="event-date">Melbourne:</h1>
+      <div>Consultant Developers</div>
+      <div>Data Engineers</div>
+      <div>Graduate Developers 2020 intake</div>
+    </div>
 
-     <div>
-     <h1 class="event-date">Brisbane:</h1>
-     <div>Graduate Developers 2020 intake<div>
-     </div>
-   </div>
+    <div>
+      <h1 class="event-date">Brisbane:</h1>
+      <div>Graduate Developers 2020 intake</div>
+    </div>
+
+    <div>
+      <br />
+        Enjoy your week :)
+      <br />
+        Issy
+    </div>
 </body>
+
 </html>
