@@ -13,7 +13,10 @@
     "test:watch": "jest '--watch'",
     "test-coverage": "jest --coverage",
     "nsp:check": "nsp check --reporter summary",
-    "prepush": "npm test"
+    "prepush": "npm test",
+    "audit": "npx check-audit --registry https://registry.npmjs.org/",
+    "audit-ignore": "npx resolve-audit --registry https://registry.npmjs.org/",
+    "audit-fix": "npm audit fix --registry https://registry.npmjs.org/"
   },
   "author": "",
   "license": "MIT",
@@ -30,7 +33,8 @@
     "moment": "~2.24.0",
     "mongoose": "^5.6.12",
     "nodemailer": "~6.3.0",
-    "promise": "~8.0.3"
+    "promise": "~8.0.3",
+    "npm-audit-resolver": "^2.0.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.5.5",
@@ -50,7 +54,6 @@
     "husky": "~3.0.5",
     "jest": "^25.0.0",
     "nodemon": "^1.19.2",
-    "nsp": "~3.2.1",
     "webpack": "~4.39.3",
     "webpack-node-externals": "~1.7.2"
   },
