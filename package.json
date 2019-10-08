@@ -13,14 +13,14 @@
     "test:watch": "jest '--watch'",
     "test-coverage": "jest --coverage",
     "nsp:check": "nsp check --reporter summary",
-    "husky": {
-      "hooks": {
-        "pre-push": "npm test"
-      }
-    },
     "audit": "npx check-audit --registry https://registry.npmjs.org/",
     "audit-ignore": "npx resolve-audit --registry https://registry.npmjs.org/",
     "audit-fix": "npm audit fix --registry https://registry.npmjs.org/"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm test"
+    }
   },
   "author": "",
   "license": "MIT",
