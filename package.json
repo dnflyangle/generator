@@ -13,7 +13,11 @@
     "test:watch": "jest '--watch'",
     "test-coverage": "jest --coverage",
     "nsp:check": "nsp check --reporter summary",
-    "prepush": "npm test",
+    "husky": {
+      "hooks": {
+        "pre-push": "npm test"
+      }
+    },
     "audit": "npx check-audit --registry https://registry.npmjs.org/",
     "audit-ignore": "npx resolve-audit --registry https://registry.npmjs.org/",
     "audit-fix": "npm audit fix --registry https://registry.npmjs.org/"
@@ -51,7 +55,7 @@
     "eslint-plugin-babel": "~5.3.0",
     "eslint-plugin-import": "~2.18.2",
     "glob": "~7.1.4",
-    "husky": "~3.0.5",
+    "husky": "~3.0.8",
     "jest": "^25.0.0",
     "nodemon": "^1.19.2",
     "webpack": "~4.39.3",
