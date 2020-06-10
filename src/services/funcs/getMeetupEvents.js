@@ -1,16 +1,22 @@
-import { reject, isEmpty, map } from 'lodash';
 import axios from 'axios';
 
 import logger from '../../utils/logger';
 
-const buildRequest = (groupUrl) => axios.get(groupUrl)
-  .then((response) => response.data)
-  .catch((err) => logger.error(`Failed to fetch events from url: ${groupUrl} with err: ${err}`));
+const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 const getMeetupEvents = async (meetupUrls) => {
-  return Promise.all(map(meetupUrls, url => buildRequest(url)))
-    .then((events) => reject(events, (event) => isEmpty(event)))
-    .catch((err) => logger.error(`getMeetupEvents failed with err: ${err}`));
+  const result = [];
+  // eslint-disable-next-line no-plusplus
+  for (let i = 0; i < meetupUrls.length; i++) {
+    // eslint-disable-next-line no-await-in-loop
+    await wait(100);
+    // eslint-disable-next-line no-await-in-loop
+    const data = await axios.get(meetupUrls[i])
+      .then((response) => response.data)
+      .catch((err) => logger.error(`Failed to fetch events from url: ${meetupUrls[i]} with err: ${err}`));
+    result.push(data);
+  }
+  return result;
 };
 
 export default getMeetupEvents;

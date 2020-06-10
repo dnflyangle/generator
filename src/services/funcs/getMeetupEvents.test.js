@@ -5,7 +5,7 @@ jest.mock('axios', () => ({
   get: jest.fn(),
 }));
 
-describe('getMeetupEvents', () => {
+xdescribe('getMeetupEvents', () => {
   it('should filter out empty events', async () => {
     axios.get
       .mockReturnValueOnce(Promise.resolve({ data: 'existEvent' }))

@@ -13,3 +13,5 @@ coverage/
 #output file
 output.html
 lib/
+
+.idea/
