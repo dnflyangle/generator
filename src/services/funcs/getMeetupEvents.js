@@ -10,7 +10,7 @@ const getMeetupEvents = async (meetupUrls) => {
   // eslint-disable-next-line no-plusplus
   for (let i = 0; i < meetupUrls.length; i++) {
     // eslint-disable-next-line no-await-in-loop
-    await wait(50);
+    await wait(500);
     // eslint-disable-next-line no-await-in-loop
     const data = await axios.get(meetupUrls[i])
       .then((response) => {
