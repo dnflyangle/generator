@@ -25,7 +25,6 @@ const MEETUP_GROUP_NAMES = [
   'Big-Data-Analytics',
   'Adobe-Experience-Manager-AEM-CQ-Meetup-in-Sydney',
   'SydneyMUG',
-  'Meteor-Sydney',
   'clj-syd',
   'Sydney-Puppet-User-Group',
   'Sydney-AWS-Security-User-Group',
