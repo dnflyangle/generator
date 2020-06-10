@@ -3,6 +3,8 @@ import axios from 'axios';
 
 import logger from '../../utils/logger';
 
+const REQUEST_DELAY = process.env.REQUEST_DELAY || 50;
+
 const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 const getMeetupEvents = async (meetupUrls) => {
@@ -10,7 +12,7 @@ const getMeetupEvents = async (meetupUrls) => {
   // eslint-disable-next-line no-plusplus
   for (let i = 0; i < meetupUrls.length; i++) {
     // eslint-disable-next-line no-await-in-loop
-    await wait(500);
+    await wait(parseInt(REQUEST_DELAY, 10));
     // eslint-disable-next-line no-await-in-loop
     const data = await axios.get(meetupUrls[i])
       .then((response) => {
