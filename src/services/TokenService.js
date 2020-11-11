@@ -6,6 +6,6 @@ export const updateToken = (token) => {
 };
 
 export const getToken = async () => {
-  const row = getTokenFromDB('sydney');
+  const row = await getTokenFromDB('sydney');
   return isEmpty(row) ? {} : row[0];
 };
