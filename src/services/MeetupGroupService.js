@@ -1,16 +1,16 @@
-import { isEmpty, pick } from 'lodash';
+import { isEmpty, map } from 'lodash';
 import axios from 'axios';
 import logger from '../utils/logger';
 import { getGroupsByOfficeFromDB, getGroupFromDB, addGroupToDB } from '../db/MeetupGroupsRepo';
 
 export const getMeetupGroups = async () => {
   const groups = await getGroupsByOfficeFromDB('sydney');
-  return pick(groups, ['group_name']);
+  return map(groups, 'group_name');
 };
 
 export const getMeetupGroup = async (groupName) => {
   const existingGroup = await getGroupFromDB('sydney', groupName);
-  return pick(existingGroup, ['group_name']);
+  return map(existingGroup, 'group_name');
 };
 
 const fetchGroup = async (groupName) => {

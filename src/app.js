@@ -3,6 +3,7 @@ import moment from 'moment';
 import bodyParser from 'body-parser';
 import path from 'path';
 import cors from 'cors';
+import logger from './utils/logger';
 
 import OAuth2Client from './utils/OAuth2Client';
 import { generateMeetupHtml } from './services/ContentService';
@@ -22,6 +23,12 @@ const corsOptions = {
   optionsSuccessStatus: 200,
 };
 
+const port = process.env.PORT || 3000;
+
+app.listen(port, () => {
+  logger.info(`app listening at port: ${port}`);
+});
+
 app.post('/generate', cors(corsOptions), async (req, res) => {
   try {
     const { date } = req.body;
@@ -37,7 +44,7 @@ app.get('/groups', async (req, res) => {
     const groups = await getMeetupGroups();
     res.status(200).send({ groups });
   } catch (err) {
-    res.status(500).send(`failed to get Meetu Groups with error: ${err}`);
+    res.status(500).send(`failed to get Meetup Groups with error: ${err}`);
   }
 });
 
