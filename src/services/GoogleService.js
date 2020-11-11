@@ -35,6 +35,7 @@ export const saveToken = async (oauth2Client, code) => {
 export const refreshToken = async oauth2Client => {
   // eslint-disable-next-line camelcase
   const { access_token, refresh_token } = await getToken();
+  logger.info('refresh_token', refresh_token);
   oauth2Client.setCredentials({ access_token, refresh_token });
 
   return new Promise((resolve, reject) => {
@@ -56,6 +57,7 @@ export const sendMessage = async () => {
   const clientId = process.env.CLIENT_ID;
   // eslint-disable-next-line camelcase
   const { access_token, refresh_token, expiry_date } = await getToken();
+  logger.info('refresh_token', refresh_token);
   const content = fs.readFileSync(`${__dirname}/funcs/output.html`);
   const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
