@@ -1,5 +1,4 @@
 import express from 'express';
-import mongoose from 'mongoose';
 import moment from 'moment';
 import bodyParser from 'body-parser';
 import path from 'path';
@@ -11,25 +10,12 @@ import {
   authorize, saveToken, refreshToken, sendMessage,
 } from './services/GoogleService';
 import {
-  seedMeetupGroups, getMeetupGroups, addNewGroup, removeGroup,
+  getMeetupGroups, addNewGroup,
 } from './services/MeetupGroupService';
-import logger from './utils/logger';
 
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
-
-mongoose
-  .connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/test', { useNewUrlParser: true })
-  .then(async () => {
-    logger.info('Database connection ready');
-    await seedMeetupGroups();
-    app.listen(process.env.PORT || 3000, () => logger.info('Generator listening on port 3000!'));
-  })
-  .catch((err) => {
-    logger.error(err);
-    process.exit(1);
-  });
 
 const corsOptions = {
   origin: 'https://meetup-tw-sydney.herokuapp.com',
@@ -63,17 +49,6 @@ app.post('/groups', async (req, res) => {
     res.status(200).send({ groups });
   } catch (err) {
     res.status(500).send(`failed to get Meetup Groups with error: ${err}`);
-  }
-});
-
-app.delete('/groups', async (req, res) => {
-  try {
-    const { groupName } = req.body;
-    await removeGroup(groupName);
-    const groups = await getMeetupGroups();
-    res.status(200).send({ groups });
-  } catch (err) {
-    res.status(500).send(`failed to delete Meetup Groups with error: ${err}`);
   }
 });
 
